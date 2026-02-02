@@ -166,11 +166,11 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>3 spins. no refunds. 🎡</h1>
+      <h1>3 spins. no refunds!! 🎡</h1>
       <p class="sub">
         I made this because I was bored and it made me laugh.
         You get <b>exactly three spins</b>. After each one you have to accept or reject the “wheel law”
-        before it lets you spin again 😄
+        before it lets you spin again 😄. All answers are final so be careful what deals you accept! Hehe
       </p>
 
       <div class="row">
@@ -211,7 +211,7 @@
 
           <div class="divider"></div>
           <div class="tiny">
-            Tip: if you play again, it won’t be the exact same results. the wheel has… personality.
+            Tip: if you play again, it won’t be the exact same results. the wheel has… a mind of its own.
           </div>
         </div>
       </div>
@@ -347,7 +347,7 @@ const SPIN3_POOL = [
 
       showResult(`
         <b>${header}</b><br><br>
-        <span style="font-size:18px"><b>${outcome}</b></span>
+        <span style="font-size:20px"><b>${outcome}</b></span>
         <div class="small">Do we accept wheel law? 😄</div>
       `);
 
@@ -364,7 +364,7 @@ const SPIN3_POOL = [
     hideYesNo();
 
     if(spinCount < 3){
-      showResult(`<b>Deal 😄</b><div class="small">Yayayayay, okay okay… next spin momma.</div>`);
+      showResult(`<b>Deal 😄</b><div class="small">Yayayayay, okay okay… next spin Momma!</div>`);
       spinBtn.disabled = false;
     } else {
       showResult(`<b>Deal 😄</b><div class="small">That’s the final spin. Screenshot this for evidence 👀</div>`);
