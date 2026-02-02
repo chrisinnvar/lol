@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Choose the Mystery ✨</title>
+  <title>3 Spins 🎡</title>
   <style>
     :root{
       --bg:#0b1220;
-      --card:rgba(255,255,255,.07);
+      --card:rgba(255,255,255,.08);
       --border:rgba(255,255,255,.14);
       --text:#e9eefc;
       --muted:rgba(233,238,252,.78);
-      --glow:rgba(140,180,255,.25);
+      --btn:rgba(255,255,255,.10);
+      --btn2:rgba(255,255,255,.16);
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(120,180,255,.18), transparent 60%),
-        radial-gradient(900px 600px at 90% 20%, rgba(255,140,200,.12), transparent 55%),
+        radial-gradient(900px 600px at 15% 10%, rgba(120,180,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(255,140,200,.14), transparent 55%),
         radial-gradient(900px 600px at 50% 110%, rgba(120,255,200,.10), transparent 55%),
         var(--bg);
       color:var(--text);
@@ -29,320 +30,316 @@
       justify-content:center;
       padding:22px;
     }
-    .wrap{width:min(820px,100%)}
+    .wrap{width:min(900px,100%)}
     .card{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:22px;
       padding:22px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      box-shadow: 0 20px 55px rgba(0,0,0,.45);
       backdrop-filter: blur(10px);
     }
-    .top{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    h1{margin:0;font-size:28px;letter-spacing:.2px}
+    .sub{margin:10px 0 0;color:var(--muted);line-height:1.55;font-size:15.5px;max-width:70ch}
+    .row{display:grid;grid-template-columns: 330px 1fr;gap:18px;margin-top:18px}
+    @media (max-width: 840px){ .row{grid-template-columns: 1fr} }
+
+    .wheelWrap{
+      display:flex; align-items:center; justify-content:center;
+      padding:12px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
     }
-    h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing:.2px;
+
+    /* Simple “wheel” look */
+    .wheelArea{position:relative;width:280px;height:280px}
+    .pointer{
+      position:absolute; top:-8px; left:50%;
+      transform:translateX(-50%);
+      width:0;height:0;
+      border-left:14px solid transparent;
+      border-right:14px solid transparent;
+      border-bottom:22px solid rgba(233,238,252,.95);
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,.45));
+      z-index:5;
     }
-    .sub{
-      margin:10px 0 0;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:15.5px;
-      max-width: 64ch;
-    }
-    .lang{
-      display:flex;
-      gap:10px;
-      align-items:center;
+    .wheel{
+      width:280px;height:280px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 45px rgba(0,0,0,.35);
+      background:
+        conic-gradient(
+          rgba(255,255,255,.14) 0 18%,
+          rgba(120,180,255,.18) 18% 36%,
+          rgba(255,140,200,.16) 36% 54%,
+          rgba(120,255,200,.14) 54% 72%,
+          rgba(255,255,255,.12) 72% 90%,
+          rgba(120,180,255,.14) 90% 100%
+        );
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+      transform: rotate(0deg);
+      transition: transform 2.2s cubic-bezier(.12,.88,.18,1);
       user-select:none;
     }
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.06);
-      cursor:pointer;
-      font-size:13px;
-      color:var(--muted);
-      transition: transform .08s ease, background .2s ease, color .2s ease;
+    .hub{
+      width:84px;height:84px;border-radius:50%;
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700;
+      letter-spacing:.5px;
     }
-    .pill:hover{transform:translateY(-1px)}
-    .pill.active{
-      background: rgba(120,180,255,.18);
-      color: var(--text);
-      border-color: rgba(120,180,255,.28);
-      box-shadow: 0 0 0 6px rgba(120,180,255,.08);
+    .labels{
+      position:absolute; inset:0;
+      pointer-events:none;
+      font-size:12px;
+      color: rgba(233,238,252,.88);
+      opacity:.9;
     }
+    .labels span{
+      position:absolute;
+      left:50%; top:50%;
+      transform-origin: 0 0;
+      white-space:nowrap;
+    }
+    /* place 6 label ticks around */
+    .l1{transform: rotate(-80deg) translate(65px,-6px);}
+    .l2{transform: rotate(-20deg) translate(65px,-6px);}
+    .l3{transform: rotate(40deg) translate(65px,-6px);}
+    .l4{transform: rotate(100deg) translate(65px,-6px);}
+    .l5{transform: rotate(160deg) translate(65px,-6px);}
+    .l6{transform: rotate(220deg) translate(65px,-6px);}
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-      margin-top:18px;
+    .right{
+      padding:10px 10px 2px;
     }
-    @media (max-width: 760px){
-      .grid{grid-template-columns: 1fr}
+    .meta{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-bottom:10px;
     }
-    button.choice{
-      width:100%;
-      text-align:left;
-      padding:14px 14px 13px;
-      border-radius:18px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
+    .pill{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.07);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .pill strong{color:var(--text)}
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    button{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.18);
+      background: var(--btn);
       color: var(--text);
+      padding:12px 14px;
       cursor:pointer;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
-      position:relative;
-      overflow:hidden;
+      transition: transform .08s ease, background .2s ease;
+      font-size:14px;
     }
-    button.choice:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.10);
-      border-color: rgba(255,255,255,.22);
-    }
-    .emoji{font-size:22px; margin-bottom:8px}
-    .title{font-weight:700; margin:0 0 4px}
-    .desc{margin:0; color:var(--muted); font-size:13.5px; line-height:1.35}
+    button:hover{transform: translateY(-1px); background: var(--btn2);}
+    button:disabled{opacity:.55; cursor:not-allowed; transform:none;}
 
     .result{
-      margin-top:16px;
+      margin-top:14px;
       padding:14px;
       border-radius:18px;
       border:1px dashed rgba(255,255,255,.25);
       background: rgba(0,0,0,.20);
       display:none;
-      animation: fadeIn .25s ease;
+      line-height:1.5;
+      animation: fadeIn .22s ease;
     }
     @keyframes fadeIn{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:translateY(0)}}
-    .result strong{color:var(--text)}
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.14);
-      margin:14px 0;
-    }
-    .prompt{
-      margin:0;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-    }
-    .copyRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-      align-items:center;
-    }
-    .miniBtn{
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      padding:10px 12px;
-      cursor:pointer;
-      transition: transform .08s ease, background .2s ease;
-      font-size:13px;
-    }
-    .miniBtn:hover{transform:translateY(-1px); background: rgba(255,255,255,.11)}
-    .toast{
-      font-size:13px;
-      color: var(--muted);
-      opacity:0;
-      transform: translateY(2px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .toast.show{opacity:1; transform:translateY(0)}
-    .footer{
-      margin-top:14px;
+    .result .small{color:var(--muted); font-size:13px; margin-top:8px}
+
+    .ynRow{display:none; gap:10px; margin-top:12px; flex-wrap:wrap}
+    .ynRow button{padding:11px 14px}
+
+    .tiny{
+      margin-top:10px;
       color: rgba(233,238,252,.62);
       font-size:12.5px;
-      line-height:1.5;
+      line-height:1.45;
     }
-    .spark{
-      display:inline-block;
-      filter: drop-shadow(0 0 12px var(--glow));
-    }
+    .divider{height:1px;background:rgba(255,255,255,.14);margin:14px 0}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="top">
-        <div>
-          <h1 id="h1">Choose the mystery <span class="spark">✨</span></h1>
-          <p class="sub" id="sub">
-            I coded this just for you. Pick a vibe… and I’ll reveal a little secret plan 😌
-          </p>
-        </div>
-        <div class="lang">
-          <div id="pill-en" class="pill active" onclick="setLang('en')">English</div>
-          <div id="pill-pt" class="pill" onclick="setLang('pt')">Português</div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <button class="choice" onclick="pick(1)">
-          <div class="emoji">☕</div>
-          <p class="title" id="c1t">Coffee + “tell me a secret”</p>
-          <p class="desc" id="c1d">Soft voice. Eye contact. One mysterious question.</p>
-        </button>
-
-        <button class="choice" onclick="pick(2)">
-          <div class="emoji">🎬</div>
-          <p class="title" id="c2t">Movie night + plot twist</p>
-          <p class="desc" id="c2d">You choose the film… I choose the twist 😏</p>
-        </button>
-
-        <button class="choice" onclick="pick(3)">
-          <div class="emoji">🌙</div>
-          <p class="title" id="c3t">Night walk + stolen moment</p>
-          <p class="desc" id="c3d">A calm place. A closer step. A quiet surprise.</p>
-        </button>
-      </div>
-
-      <div id="result" class="result"></div>
-
-      <div class="divider"></div>
-
-      <p class="prompt" id="prompt">
-        Your turn: reply to me with <strong>1, 2, or 3</strong>… and add one emoji that matches your mood.
-        <br>Bonus: if you pick the best one, I owe you a surprise 😉
+      <h1>Okay… 3 spins. That’s it. 🎡</h1>
+      <p class="sub">
+        I made this little wheel thing because I felt like it.
+        You get <b>exactly three spins</b>… and whatever it lands on, we’re counting it 😄
       </p>
 
-      <div class="copyRow">
-        <button class="miniBtn" onclick="copyMessage()" id="copyBtn">Copy message to send</button>
-        <span class="toast" id="toast">Copied ✅</span>
-      </div>
+      <div class="row">
+        <div class="wheelWrap">
+          <div class="wheelArea">
+            <div class="pointer"></div>
+            <div id="wheel" class="wheel">
+              <div class="labels">
+                <span class="l1">🙂</span>
+                <span class="l2">🍝</span>
+                <span class="l3">💋</span>
+                <span class="l4">✨</span>
+                <span class="l5">🫶</span>
+                <span class="l6">🎁</span>
+              </div>
+              <div class="hub">SPIN</div>
+            </div>
+          </div>
+        </div>
 
-      <div class="footer" id="footer">
-        P.S. This is a “yes” button disguised as a game. Don’t tell anyone 😄
+        <div class="right">
+          <div class="meta">
+            <div class="pill">Spins left: <strong id="left">3</strong></div>
+            <div class="pill">Spin #: <strong id="num">0</strong>/3</div>
+          </div>
+
+          <div class="btnRow">
+            <button id="spinBtn" onclick="spin()">Spin the wheel</button>
+            <button id="resetBtn" onclick="resetGame()" style="display:none;">Reset</button>
+          </div>
+
+          <div id="result" class="result"></div>
+
+          <div id="ynRow" class="ynRow">
+            <button onclick="answerYes()">Yes 💘</button>
+            <button onclick="answerNo()">No 😌</button>
+          </div>
+
+          <div class="divider"></div>
+          <div class="tiny">
+            P.S. If you win, you’re allowed to screenshot it and use it as proof.  
+            If you lose… no you didn’t 😅
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
 <script>
-  let lang = "en";
-  let lastPick = null;
+  let spinCount = 0;
+  let spinning = false;
+  let currentRotation = 0;
 
-  const T = {
-    en: {
-      h1: "Choose the mystery ✨",
-      sub: "I coded this just for you. Pick a vibe… and I’ll reveal a little secret plan 😌",
-      c1t: "Coffee + “tell me a secret”",
-      c1d: "Soft voice. Eye contact. One mysterious question.",
-      c2t: "Movie night + plot twist",
-      c2d: "You choose the film… I choose the twist 😏",
-      c3t: "Night walk + stolen moment",
-      c3d: "A calm place. A closer step. A quiet surprise.",
-      prompt: 'Your turn: reply to me with <strong>1, 2, or 3</strong>… and add one emoji that matches your mood.<br>Bonus: if you pick the best one, I owe you a surprise 😉',
-      copyBtn: "Copy message to send",
-      footer: "P.S. This is a “yes” button disguised as a game. Don’t tell anyone 😄",
-      selected: "Selected",
-      question: "Question",
-      q: "Which one are you choosing — 1, 2, or 3?",
-      plans: {
-        1: "Plan: We get coffee ☕ and each tell one secret (not too crazy 😅). Then I ask you one question you’ve never been asked before.",
-        2: "Plan: You pick the movie 🎬. I bring snacks. Halfway through, we pause for one ‘plot twist’ question about us 😏",
-        3: "Plan: A night walk 🌙 somewhere calm. If you smile at something, you have to tell me what’s on your mind. (Hand-holding is… permitted.)"
-      }
-    },
-    pt: {
-      h1: "Escolha o mistério ✨",
-      sub: "Eu programei isso só pra você. Escolhe uma vibe… e eu revelo um plano secreto 😌",
-      c1t: "Café + “me conta um segredo”",
-      c1d: "Voz baixa. Olhar. Uma pergunta misteriosa.",
-      c2t: "Noite de filme + reviravolta",
-      c2d: "Você escolhe o filme… eu escolho a reviravolta 😏",
-      c3t: "Caminhada à noite + momento roubado",
-      c3d: "Um lugar calmo. Um passo mais perto. Uma surpresa.",
-      prompt: 'Sua vez: me responde com <strong>1, 2 ou 3</strong>… e manda um emoji que combine com seu humor.<br>Bônus: se você escolher a melhor, eu te devo uma surpresa 😉',
-      copyBtn: "Copiar mensagem pra mandar",
-      footer: "P.S. Isso é um botão de “sim” disfarçado de jogo. Não conta pra ninguém 😄",
-      selected: "Você escolheu",
-      question: "Pergunta",
-      q: "Qual você escolhe — 1, 2 ou 3?",
-      plans: {
-        1: "Plano: A gente toma um café ☕ e cada um conta um segredo (nada muito doido 😅). Depois eu te faço uma pergunta que ninguém nunca te fez.",
-        2: "Plano: Você escolhe o filme 🎬. Eu levo os snacks. No meio, pausa pra uma pergunta de ‘reviravolta’ sobre nós 😏",
-        3: "Plano: Caminhada à noite 🌙 num lugar tranquilo. Se você sorrir com alguma coisa, você me diz o que tá pensando. (Segurar a mão é… permitido.)"
-      }
-    }
-  };
+  const wheelEl = document.getElementById("wheel");
+  const leftEl  = document.getElementById("left");
+  const numEl   = document.getElementById("num");
+  const resultEl = document.getElementById("result");
+  const spinBtn  = document.getElementById("spinBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const ynRow    = document.getElementById("ynRow");
 
-  function setLang(l){
-    lang = l;
-    document.getElementById("pill-en").classList.toggle("active", l==="en");
-    document.getElementById("pill-pt").classList.toggle("active", l==="pt");
+  // Edit these if you want (human, casual phrasing helps)
+  const spin1Text = "Spin 1 says… you owe me a smile 🙂 (like a real one, not a polite one)";
+  const spin2Text = "Spin 2 says… you owe me dinner 🍝 (I’m not even picky… I just want you there)";
 
-    document.getElementById("h1").innerText = T[lang].h1;
-    document.getElementById("sub").innerText = T[lang].sub;
+  // ✅ THIS is your controlled 3rd spin message:
+  const spin3Title = "Okay… last spin. 💌";
+  const spin3Question = "Will you be my Valentine?";
+  const spin3Sub = "No pressure. I just wanted to ask you in a cute way.";
 
-    document.getElementById("c1t").innerText = T[lang].c1t;
-    document.getElementById("c1d").innerText = T[lang].c1d;
-    document.getElementById("c2t").innerText = T[lang].c2t;
-    document.getElementById("c2d").innerText = T[lang].c2d;
-    document.getElementById("c3t").innerText = T[lang].c3t;
-    document.getElementById("c3d").innerText = T[lang].c3d;
+  function updateUI(){
+    const spinsLeft = Math.max(0, 3 - spinCount);
+    leftEl.textContent = spinsLeft.toString();
+    numEl.textContent = spinCount.toString();
 
-    document.getElementById("prompt").innerHTML = T[lang].prompt;
-    document.getElementById("copyBtn").innerText = T[lang].copyBtn;
-    document.getElementById("footer").innerText = T[lang].footer;
-
-    // re-render selection in new language if already picked
-    if(lastPick) renderResult(lastPick);
-  }
-
-  function pick(n){
-    lastPick = n;
-    renderResult(n);
-    document.getElementById("result").scrollIntoView({behavior:"smooth", block:"center"});
-  }
-
-  function renderResult(n){
-    const r = document.getElementById("result");
-    r.style.display = "block";
-    const plan = T[lang].plans[n];
-    r.innerHTML = `
-      <strong>${T[lang].selected}:</strong> ${plan}
-      <div style="height:10px"></div>
-      <strong>${T[lang].question}:</strong> ${T[lang].q}
-    `;
-  }
-
-  async function copyMessage(){
-    const pickText = lastPick ? lastPick : "…";
-    const msg = (lang === "en")
-      ? `I made a tiny coded game for you 😄\nChoose: 1 ☕ / 2 🎬 / 3 🌙\nReply with your number + one emoji.`
-      : `Eu fiz um joguinho programado pra você 😄\nEscolhe: 1 ☕ / 2 🎬 / 3 🌙\nMe responde com o número + um emoji.`;
-
-    try{
-      await navigator.clipboard.writeText(msg);
-      showToast();
-    }catch(e){
-      // fallback
-      const ta = document.createElement("textarea");
-      ta.value = msg;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      showToast();
+    if(spinsLeft === 0){
+      spinBtn.disabled = true;
+      resetBtn.style.display = "inline-block";
+    } else {
+      spinBtn.disabled = false;
     }
   }
 
-  function showToast(){
-    const t = document.getElementById("toast");
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"), 1400);
+  function showResult(html){
+    resultEl.style.display = "block";
+    resultEl.innerHTML = html;
   }
+
+  function hideYesNo(){
+    ynRow.style.display = "none";
+  }
+
+  function showYesNo(){
+    ynRow.style.display = "flex";
+  }
+
+  function spin(){
+    if(spinning) return;
+    if(spinCount >= 3) return;
+
+    spinning = true;
+    spinBtn.disabled = true;
+    hideYesNo();
+
+    spinCount += 1;
+    updateUI();
+
+    // Make it feel random (visually) even though spin 3 is fixed text
+    const extraTurns = 4 + Math.floor(Math.random()*3); // 4–6 full rotations
+    const randomDeg = Math.floor(Math.random()*360);
+    currentRotation += (extraTurns * 360) + randomDeg;
+
+    wheelEl.style.transform = `rotate(${currentRotation}deg)`;
+
+    // after spin animation ends
+    setTimeout(() => {
+      if(spinCount === 1){
+        showResult(`<b>${spin1Text}</b><div class="small">Okay. One down 😄</div>`);
+      } else if(spinCount === 2){
+        showResult(`<b>${spin2Text}</b><div class="small">Don’t blame me… the wheel is the wheel.</div>`);
+      } else {
+        // Spin 3: your controlled message + yes/no
+        showResult(
+          `<b>${spin3Title}</b><br><br>
+           <span style="font-size:18px"><b>${spin3Question}</b></span><br>
+           <span class="small">${spin3Sub}</span>`
+        );
+        showYesNo();
+      }
+
+      spinning = false;
+      // Only re-enable spin if spins left remain
+      spinBtn.disabled = (spinCount >= 3);
+    }, 2250);
+  }
+
+  function answerYes(){
+    showResult(
+      `<b>She said YES 💘</b><br><br>
+       okay I’m smiling now. like genuinely 😌<div class="small">Send me a screenshot so I can keep it 👀</div>`
+    );
+    hideYesNo();
+  }
+
+  function answerNo(){
+    showResult(
+      `<b>Okay 😌</b><br><br>
+       still proud of you for playing my silly little wheel game.<div class="small">You still “owe me a smile” though 🙂</div>`
+    );
+    hideYesNo();
+  }
+
+  function resetGame(){
+    spinCount = 0;
+    spinning = false;
+    currentRotation = 0;
+    wheelEl.style.transform = "rotate(0deg)";
+    resultEl.style.display = "none";
+    resultEl.innerHTML = "";
+    hideYesNo();
+    spinBtn.disabled = false;
+    resetBtn.style.display = "none";
+    updateUI();
+  }
+
+  updateUI();
 </script>
 </body>
 </html>
