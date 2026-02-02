@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,7 +30,7 @@
       justify-content:center;
       padding:22px;
     }
-    .wrap{width:min(900px,100%)}
+    .wrap{width:min(950px,100%)}
     .card{
       background:var(--card);
       border:1px solid var(--border);
@@ -41,9 +40,9 @@
       backdrop-filter: blur(10px);
     }
     h1{margin:0;font-size:28px;letter-spacing:.2px}
-    .sub{margin:10px 0 0;color:var(--muted);line-height:1.55;font-size:15.5px;max-width:70ch}
+    .sub{margin:10px 0 0;color:var(--muted);line-height:1.55;font-size:15.5px;max-width:72ch}
     .row{display:grid;grid-template-columns: 330px 1fr;gap:18px;margin-top:18px}
-    @media (max-width: 840px){ .row{grid-template-columns: 1fr} }
+    @media (max-width: 860px){ .row{grid-template-columns: 1fr} }
 
     .wheelWrap{
       display:flex; align-items:center; justify-content:center;
@@ -53,7 +52,6 @@
       background: rgba(0,0,0,.18);
     }
 
-    /* Simple “wheel” look */
     .wheelArea{position:relative;width:280px;height:280px}
     .pointer{
       position:absolute; top:-8px; left:50%;
@@ -71,12 +69,12 @@
       box-shadow: 0 18px 45px rgba(0,0,0,.35);
       background:
         conic-gradient(
-          rgba(255,255,255,.14) 0 18%,
-          rgba(120,180,255,.18) 18% 36%,
-          rgba(255,140,200,.16) 36% 54%,
-          rgba(120,255,200,.14) 54% 72%,
-          rgba(255,255,255,.12) 72% 90%,
-          rgba(120,180,255,.14) 90% 100%
+          rgba(255,255,255,.14) 0 16%,
+          rgba(120,180,255,.18) 16% 33%,
+          rgba(255,140,200,.16) 33% 50%,
+          rgba(120,255,200,.14) 50% 66%,
+          rgba(255,255,255,.12) 66% 83%,
+          rgba(120,180,255,.14) 83% 100%
         );
       display:flex; align-items:center; justify-content:center;
       position:relative;
@@ -85,12 +83,12 @@
       user-select:none;
     }
     .hub{
-      width:84px;height:84px;border-radius:50%;
+      width:88px;height:88px;border-radius:50%;
       background: rgba(0,0,0,.28);
       border:1px solid rgba(255,255,255,.18);
       display:flex; align-items:center; justify-content:center;
-      font-weight:700;
-      letter-spacing:.5px;
+      font-weight:800;
+      letter-spacing:.6px;
     }
     .labels{
       position:absolute; inset:0;
@@ -105,7 +103,6 @@
       transform-origin: 0 0;
       white-space:nowrap;
     }
-    /* place 6 label ticks around */
     .l1{transform: rotate(-80deg) translate(65px,-6px);}
     .l2{transform: rotate(-20deg) translate(65px,-6px);}
     .l3{transform: rotate(40deg) translate(65px,-6px);}
@@ -113,9 +110,7 @@
     .l5{transform: rotate(160deg) translate(65px,-6px);}
     .l6{transform: rotate(220deg) translate(65px,-6px);}
 
-    .right{
-      padding:10px 10px 2px;
-    }
+    .right{padding:10px 10px 2px;}
     .meta{
       display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       margin-bottom:10px;
@@ -150,31 +145,32 @@
       border:1px dashed rgba(255,255,255,.25);
       background: rgba(0,0,0,.20);
       display:none;
-      line-height:1.5;
+      line-height:1.55;
       animation: fadeIn .22s ease;
     }
     @keyframes fadeIn{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:translateY(0)}}
-    .result .small{color:var(--muted); font-size:13px; margin-top:8px}
+    .small{color:var(--muted); font-size:13px; margin-top:8px}
 
     .ynRow{display:none; gap:10px; margin-top:12px; flex-wrap:wrap}
     .ynRow button{padding:11px 14px}
 
+    .divider{height:1px;background:rgba(255,255,255,.14);margin:14px 0}
     .tiny{
       margin-top:10px;
       color: rgba(233,238,252,.62);
       font-size:12.5px;
       line-height:1.45;
     }
-    .divider{height:1px;background:rgba(255,255,255,.14);margin:14px 0}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Okay… 3 spins. That’s it. 🎡</h1>
+      <h1>3 spins. no refunds. 🎡</h1>
       <p class="sub">
-        I made this little wheel thing because I felt like it.
-        You get <b>exactly three spins</b>… and whatever it lands on, we’re counting it
+        I made this because I was bored and it made me laugh.
+        You get <b>exactly three spins</b>. After each one you have to accept or reject the “wheel law”
+        before it lets you spin again 😄
       </p>
 
       <div class="row">
@@ -187,7 +183,7 @@
                 <span class="l2">🍝</span>
                 <span class="l3">💋</span>
                 <span class="l4">✨</span>
-                <span class="l5">🫶</span>
+                <span class="l5">🫠</span>
                 <span class="l6">🎁</span>
               </div>
               <div class="hub">SPIN</div>
@@ -202,21 +198,20 @@
           </div>
 
           <div class="btnRow">
-            <button id="spinBtn" onclick="spin()">Spin the wheel</button>
-            <button id="resetBtn" onclick="resetGame()" style="display:none;">Reset</button>
+            <button id="spinBtn" onclick="spin()">Spin</button>
+            <button id="resetBtn" onclick="resetGame()" style="display:none;">Play again</button>
           </div>
 
           <div id="result" class="result"></div>
 
           <div id="ynRow" class="ynRow">
-            <button onclick="answerYes()">Yes 💘</button>
-            <button onclick="answerNo()">No 😌</button>
+            <button onclick="acceptOutcome()">Deal 😄</button>
+            <button onclick="rejectOutcome()">Nope 😌</button>
           </div>
 
           <div class="divider"></div>
           <div class="tiny">
-            P.S. If you win, you’re allowed to screenshot it and use it as proof.  
-            If you lose… no you didn’t 😅
+            Tip: if you play again, it won’t be the exact same results. the wheel has… personality.
           </div>
         </div>
       </div>
@@ -224,26 +219,84 @@
   </div>
 
 <script>
+  // ====== EDIT THE OUTCOMES HERE ======
+  // Spin 1: cute-ish / silly / low stakes
+  const SPIN1_POOL = [
+    "promise me youll go to bed earlier 😴 (yes this is me being responsible)",
+    "you owe me a smile 🙂 (a real one)",
+    "you owe me one voice note 🎙️ (even 3 seconds, i don’t care)",
+    "you owe me one ‘good morning’ text tomorrow 🌤️",
+    "you owe me one cute selfie 🤳 (no pressure, just saying)",
+    "you owe me an emoji that matches your mood right now 😄",
+    "you owe me one random fun fact 🧠 (any topic, surprise me)",
+    "you owe me one “i’m proud of you” to yourself today 🫶 (yes i’m serious)",
+    "you owe me ONE dramatic gasp 😱 (practice immediately)"
+  ];
+
+  // Spin 2: more flirty / date-y / “okay now we’re talking”
+  const SPIN2_POOL = [
+    "you owe me dinner 🍝 (and i’m going to pretend this is legally binding)",
+    "you owe me a kiss 💋 (interest is compounding daily)",
+    "you owe me a date night ✨ (you choose: cozy or chaotic)",
+    "you owe me a hug 🤍 (the long kind)",
+    "you owe me dessert 🍰 (i’m not negotiating)",
+    "you owe me a movie night 🎬 (you pick, i’ll behave… maybe)",
+    "you owe me coffee ☕ (and you have to tell me one secret)",
+    "you owe me a ‘yes’ to doing something spontaneous this week 😌",
+    "you owe me a walk together 🌙 (slow pace, good vibes)"
+  ];
+
+  // Spin 3: bigger / funnier / “final boss”
+  const SPIN3_POOL = [
+    "you owe me 2 quadrillion dollars 💸 (i accept cash, card, or emotional support)",
+    "you owe me an apology 😌 …for what? idk lol heeh",
+    "you owe me a japanese vacation 🇯🇵 (i want ramen, temples, and vibes)",
+    "you owe me 1 (one) royal title 👑 (i don’t make the rules)",
+    "you owe me a lifetime supply of forehead kisses 😭",
+    "you owe me a weekend getaway 🧳 (no planning stress, just go)",
+    "you owe me control of the aux cord 🎵 (dangerous, i know)",
+    "you owe me a handwritten note 📝 (yes like it’s 2009)",
+    "you owe me a ‘yes’ to being my valentine 💌 (you can say no, but the wheel will be sad)"
+  ];
+  // ====================================
+
   let spinCount = 0;
   let spinning = false;
+  let waitingForAnswer = false;
   let currentRotation = 0;
 
-  const wheelEl = document.getElementById("wheel");
-  const leftEl  = document.getElementById("left");
-  const numEl   = document.getElementById("num");
+  // We’ll shuffle pools so replays feel different, and avoid repeats within a run.
+  let spin1Bag = [];
+  let spin2Bag = [];
+  let spin3Bag = [];
+
+  const wheelEl  = document.getElementById("wheel");
+  const leftEl   = document.getElementById("left");
+  const numEl    = document.getElementById("num");
   const resultEl = document.getElementById("result");
   const spinBtn  = document.getElementById("spinBtn");
   const resetBtn = document.getElementById("resetBtn");
   const ynRow    = document.getElementById("ynRow");
 
-  // Edit these if you want (human, casual phrasing helps)
-  const spin1Text = "Spin 1 says… Promise me you go to bed earlier lol (probably won't happen)";
-  const spin2Text = "Spin 2 says… you owe me dinner hehe (I’m not picky… I just want you there, finger finger)";
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
-  // ✅ THIS is your controlled 3rd spin message:
-  const spin3Title = "Okay… last spin. 💌";
-  const spin3Question = "Will you be my Valentine?";
-  const spin3Sub = "No pressure. I just wanted to ask you in a cute way.";
+  function refillBags(){
+    spin1Bag = shuffle(SPIN1_POOL);
+    spin2Bag = shuffle(SPIN2_POOL);
+    spin3Bag = shuffle(SPIN3_POOL);
+  }
+
+  function pullFromBag(bag, pool){
+    if(bag.length === 0) bag.push(...shuffle(pool));
+    return bag.pop();
+  }
 
   function updateUI(){
     const spinsLeft = Math.max(0, 3 - spinCount);
@@ -254,7 +307,8 @@
       spinBtn.disabled = true;
       resetBtn.style.display = "inline-block";
     } else {
-      spinBtn.disabled = false;
+      // locked if waitingForAnswer
+      spinBtn.disabled = waitingForAnswer || spinning;
     }
   }
 
@@ -263,16 +317,11 @@
     resultEl.innerHTML = html;
   }
 
-  function hideYesNo(){
-    ynRow.style.display = "none";
-  }
-
-  function showYesNo(){
-    ynRow.style.display = "flex";
-  }
+  function showYesNo(){ ynRow.style.display = "flex"; }
+  function hideYesNo(){ ynRow.style.display = "none"; }
 
   function spin(){
-    if(spinning) return;
+    if(spinning || waitingForAnswer) return;
     if(spinCount >= 3) return;
 
     spinning = true;
@@ -282,54 +331,75 @@
     spinCount += 1;
     updateUI();
 
-    // Make it feel random (visually) even though spin 3 is fixed text
-    const extraTurns = 4 + Math.floor(Math.random()*3); // 4–6 full rotations
-    const randomDeg = Math.floor(Math.random()*360);
+    // wheel animation (visual “random” spin)
+    const extraTurns = 4 + Math.floor(Math.random()*3); // 4–6 rotations
+    const randomDeg  = Math.floor(Math.random()*360);
     currentRotation += (extraTurns * 360) + randomDeg;
-
     wheelEl.style.transform = `rotate(${currentRotation}deg)`;
 
-    // after spin animation ends
     setTimeout(() => {
+      let outcome = "";
+      let header = "";
+
       if(spinCount === 1){
-        showResult(`<b>${spin1Text}</b><div class="small">Okay. One down 😄</div>`);
+        header = "Spin 1 result:";
+        outcome = pullFromBag(spin1Bag, SPIN1_POOL);
       } else if(spinCount === 2){
-        showResult(`<b>${spin2Text}</b><div class="small">Don’t blame me… the wheel is the wheel.</div>`);
+        header = "Spin 2 result:";
+        outcome = pullFromBag(spin2Bag, SPIN2_POOL);
       } else {
-        // Spin 3: your controlled message + yes/no
-        showResult(
-          `<b>${spin3Title}</b><br><br>
-           <span style="font-size:18px"><b>${spin3Question}</b></span><br>
-           <span class="small">${spin3Sub}</span>`
-        );
-        showYesNo();
+        header = "Final spin result:";
+        outcome = pullFromBag(spin3Bag, SPIN3_POOL);
       }
 
+      showResult(`
+        <b>${header}</b><br><br>
+        <span style="font-size:18px"><b>${outcome}</b></span>
+        <div class="small">Do we accept wheel law? 😄</div>
+      `);
+
+      waitingForAnswer = true;
+      showYesNo();
+
       spinning = false;
-      // Only re-enable spin if spins left remain
-      spinBtn.disabled = (spinCount >= 3);
+      updateUI();
     }, 2250);
   }
 
-  function answerYes(){
-    showResult(
-      `<b>She said YES 💘</b><br><br>
-       okay I’m smiling now. like genuinely 😌<div class="small">Send me a screenshot so I can keep it 👀</div>`
-    );
+  function acceptOutcome(){
+    waitingForAnswer = false;
     hideYesNo();
+
+    if(spinCount < 3){
+      showResult(`<b>Deal 😄</b><div class="small">Okay okay… next spin.</div>`);
+      spinBtn.disabled = false;
+    } else {
+      showResult(`<b>Deal 😄</b><div class="small">That’s the final spin. Screenshot this for evidence 👀</div>`);
+      spinBtn.disabled = true;
+      resetBtn.style.display = "inline-block";
+    }
+    updateUI();
   }
 
-  function answerNo(){
-    showResult(
-      `<b>Okay 😌</b><br><br>
-       still proud of you for playing my silly little wheel game.<div class="small">You still “owe me a smile” though 🙂</div>`
-    );
+  function rejectOutcome(){
+    waitingForAnswer = false;
     hideYesNo();
+
+    if(spinCount < 3){
+      showResult(`<b>Nope 😌</b><div class="small">Noted. The wheel is offended… but it’ll allow another spin.</div>`);
+      spinBtn.disabled = false;
+    } else {
+      showResult(`<b>Nope 😌</b><div class="small">Final answer. The wheel will remember this 😭</div>`);
+      spinBtn.disabled = true;
+      resetBtn.style.display = "inline-block";
+    }
+    updateUI();
   }
 
   function resetGame(){
     spinCount = 0;
     spinning = false;
+    waitingForAnswer = false;
     currentRotation = 0;
     wheelEl.style.transform = "rotate(0deg)";
     resultEl.style.display = "none";
@@ -337,9 +407,14 @@
     hideYesNo();
     spinBtn.disabled = false;
     resetBtn.style.display = "none";
+
+    // reshuffle so the next playthrough feels fresh
+    refillBags();
     updateUI();
   }
 
+  // init
+  refillBags();
   updateUI();
 </script>
 </body>
